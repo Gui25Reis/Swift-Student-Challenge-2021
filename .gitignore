@@ -1,6 +1,8 @@
-# Arquvios de texto mac:
+# Docuementos pessoais:
+Files/documents
 
-*.rtf
+# Arquivos antigos
+Files/images/ideia-antiga
 
 
 # Xcode
