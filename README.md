@@ -4,7 +4,7 @@
 [![Swift version](https://img.shields.io/badge/swift-v5.3-blue?logo=swift)](https://www.python.org/downloads/release/python-385/)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen?)](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/blob/main/LICENSE)
 
-<p align="center">
+<p>
     <img align="center" style="margin: 0px auto;" src="https://github.com/Gui25Reis/Swift-Student-Challenge-2021/blob/main/Files/images/cover.png" width="650px"/>
 </p>
 
