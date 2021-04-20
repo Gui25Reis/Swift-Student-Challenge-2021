@@ -1,5 +1,5 @@
 # Ball Runner
-[![Version](https://img.shields.io/badge/version-1.0.0-orange)](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/releases/tag/1.0)
+[![Version](https://img.shields.io/badge/version-1.0.0-orange)](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/releases/tag/1.0.0)
 [![Plataform](https://img.shields.io/badge/plataforma-MacOS%20|%20iPad-lightgrey?)](https://www.apple.com/swift/playgrounds/)
 [![Swift version](https://img.shields.io/badge/swift-v5.3-blue?logo=swift)](https://www.python.org/downloads/release/python-385/)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen?)](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/blob/main/LICENSE)
