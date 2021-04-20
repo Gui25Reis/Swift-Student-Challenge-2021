@@ -5,7 +5,7 @@
 [![Licença](https://img.shields.io/badge/license-MIT-brightgreen?)](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/blob/main/LICENSE)
 
 <p align="center">
-    <img align="center" style="margin: 0px auto;" src="https://github.com/Gui25Reis/Swift-Student-Challenge-2021/blob/main/Files/images/cover.png"/>
+    <img align="center" style="margin: 0px auto;" src="https://github.com/Gui25Reis/Swift-Student-Challenge-2021/blob/main/Files/images/cover.png" width="650px"/>
 </p>
 
 Um jogo criado para a plataforma [playgrounds](https://www.apple.com/swift/playgrounds/) para o [Swift Student Challenge 2021](https://developer.apple.com/wwdc21/swift-student-challenge/).
