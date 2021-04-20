@@ -4,8 +4,6 @@
 [![Swift version](https://img.shields.io/badge/swift-v5.3-blue?logo=swift)](https://www.python.org/downloads/release/python-385/)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen?)](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/blob/main/LICENSE)
 
-![Cover]("https://github.com/Gui25Reis/Swift-Student-Challenge-2021/blob/main/Files/images/cover-git.png")
-
 A game created for the [playgrounds](https://www.apple.com/swift/playgrounds/) platform for the [Swift Student Challenge 2021](https://developer.apple.com/wwdc21/swift-student-challenge/).
 
 1. [Code](#code)
