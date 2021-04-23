@@ -1,9 +1,15 @@
 //#-hidden-code
+/* Gui Reis     -    gui.sreis25@gmail.com */
+
+/* Bibliotecas necessárias: */
+// Globais
 import class PlaygroundSupport.PlaygroundPage
+
+// Locais
 import class Modules.GameViewController
 
-let art = GameViewController()
-PlaygroundPage.current.setLiveView(art)
+let art = GameViewController()                  // Chama o controle da cena
+PlaygroundPage.current.setLiveView(art)         // Define a tela da live view
 //#-end-hidden-code
 /*:
  # Ball Runner

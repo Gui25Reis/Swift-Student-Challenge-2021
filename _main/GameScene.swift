@@ -1,6 +1,7 @@
 /* Gui Reis     -    gui.sreis25@gmail.com */
 
-// Bibliotecas necessárias:
+/* Bibliotecas necessárias: */
+// Globais
 import class SpriteKit.SKScene
 import class SpriteKit.SKLabelNode
 import class SpriteKit.SKView
@@ -14,8 +15,48 @@ import struct SpriteKit.CGPoint
 import func SpriteKit.sqrt
 import func SpriteKit.pow
 
+// Locais
 import class Modules.Particle
 
+
+/**
+    # Ação e funcionamento do jogo
+    Toda a lógica e funcionamento do jogo está nessa classe.
+
+    ## Atributos
+    
+    |     Atributos     |                                    Descrição                                  |
+    |:------------------|:------------------------------------------------------------------------------|
+    | allParticles      | Lista com todas as partículas vermelhas.                                      |
+    | specialParticle   | Lista com todas as partículas verdes (especiais).                             |
+    | userNode          | Partícula que o usuário controla.                                             |
+    | gameOn            | Verifica se o jogo já começou.                                                |
+    | gameStart         | Incialização do jogo.                                                         |
+    | lbClock           | Label do cronômetro.                                                          |
+    | lbNotification    | Label da notificação de início e final de jogo.                               |
+    | renderTime        | Tempo de renderização do fps                                                  |
+    | gameTime          | Cronômetro.                                                                   |
+    | specialTime       | Momento de criação das bolinhas especiais.                                    |
+    | isDragging        | Verifica se está movendo a bolinha do usuário.                                |
+    | scaleTime         | Aumento da escala da bolinha (quando nasce) em relação ao tempo (segundos).   |
+    |-------------------|-------------------------------------------------------------------------------|
+    
+    ## Métodos
+    
+    |      Métodos      |                     Descrição                     |
+    |:------------------|:--------------------------------------------------|
+    | didMove           | Configurações de quando a cena é carregada.       |
+    | didChangeSize     | Configurações da tela.                            |
+    | update            | Configuração e ação de cada frame (fps).          |
+    | createNode        | Criação e configuração inicial de uma partícula.  |
+    | moveParticles     | Movimentação das partículas.                      |
+    | clear             | Limpa a tela (ação das bolinhas verdes).          |
+    | startDrag         | Ação de quando clica na tela.                     |
+    | drag              | Ação de quando arrasta com o click pressionado.   |
+    | drop              | Ação de quando solta o click.                     |
+    | getDistance       | Cálculo da distância entre dois pontos.           |
+    |-------------------|---------------------------------------------------|
+*/
 public class GameScene: SKScene {
     // Atributos da classe
     var allParticles:[Particle] = []
@@ -31,7 +72,10 @@ public class GameScene: SKScene {
     var isDragging:Bool = false
     var scaleTime:TimeInterval = 1
     
-    // Método [lifecycle]: Mostra algo na tela
+    /** 
+        # Método [lifecycle]: 
+        Toda vez que a tela é carregada (inicializada) essas configuraçôes serão feitas.
+    */
     public override func didMove(to view: SKView) {
         super.didMove(to: view)
         self.backgroundColor = #colorLiteral(red: 0.976, green: 0.8185917735099792, blue: 0.6586142182350159, alpha: 1.0)
@@ -51,7 +95,11 @@ public class GameScene: SKScene {
         self.addChild(self.lbNotification)
     }
     
-    // Método [lifecycle]: chamado toda vez que muda o tamanho da tela
+
+    /** 
+        # Método [lifecycle]: 
+        Configurações feitas quando tem alguma alteração no tamanho de tela.
+    */
     public override func didChangeSize(_ oldSize: CGSize) {
         self.userNode.setPositions(self.size.width / 2, self.size.height / 2)
         self.lbClock.position.x = self.size.width / 2
@@ -61,7 +109,11 @@ public class GameScene: SKScene {
         self.lbNotification.position.y = (self.size.height / 2) / 2
     }
     
-    // Método [lifecycle]: atualiza a janela
+
+    /** 
+        # Método [lifecycle]: 
+        Ação de cada frame que acontece (fps).
+    */
     public override func update(_ currentTime: TimeInterval) {
         if (self.gameOn) {  
             self.gameStart = false
@@ -88,7 +140,7 @@ public class GameScene: SKScene {
                     else {break}
                 }
             }
-            moveParticles(currentTime)
+            moveParticles()
         } else if (self.gameStart){
             var uPos = self.userNode.getPositions()
             if ((uPos[0] != self.size.width/2) && (uPos[1] != self.size.height/2)) {
@@ -100,6 +152,13 @@ public class GameScene: SKScene {
     }
     
     // Cria as bolinhas na tela
+    /** 
+        # Método: 
+        Criação e configuração inicial das bolinhas
+
+        ## Parâmetro:
+        `Bool` isSpecial_: `true` pra esepcial ou `false` para comum.
+    */
     func createNode(isSpecial_:Bool) {
         var p = Particle()
         // Define a posição da bolinha
@@ -121,9 +180,13 @@ public class GameScene: SKScene {
         }
     }
     
-    // Configurando as bolinhass
-    func moveParticles(_ currentTime: TimeInterval) -> Void {
-        // Psoição atual do UserNode
+    
+    /** 
+        # Método: 
+        Configuração do movimento das bolinhas.
+    */
+    func moveParticles() -> Void {
+        // Posição atual do UserNode
         var uPos = self.userNode.getPositions()
         var act = SKAction.move(to: CGPoint(x: uPos[0] , y: uPos[1]), duration: 3)
         
@@ -164,7 +227,11 @@ public class GameScene: SKScene {
         }
     }
     
-    // Limpa as bolinhas
+    
+    /** 
+        # Método: 
+        Ação das bolinhas verdes: tira todas as bolinhas (partículas/node) vermelhas da tela.
+    */
     func clear() -> Void{
         for p in self.allParticles.reversed(){
             if (!p.isAlive()) {break}
@@ -181,17 +248,23 @@ public class GameScene: SKScene {
         self.addChild(self.lbClock)
     }
     
-    /* Movimentando a bolinha (node) */
+    /* Movimentando a bolinha com o mouse (node) */
     
-    // Quando começa a carregar
+    /** 
+        # Método: 
+        Ação de quando clica na tela.
+    */
     func startDrag(_ pos_:[CGFloat]) -> Void {
         if (self.gameOn || self.gameStart) {self.isDragging = true}
     }
     
-    // Quando está carregando
+    /** 
+        # Método: 
+        Ação de quando arrasta algo na tela.
+    */
     func drag(_ pos_:[CGFloat]) -> Void{
         if ((self.gameOn && self.isDragging) || (self.gameStart)) {
-            if (pos_[0] < 0 && pos_[1] < 0) {            // 3º Quadrante
+            if (pos_[0] < 0 && pos_[1] < 0) {            // 3º Quadrante (x e y são negativos)
                 self.userNode.setPositions(0, 0)
             } else if (pos_[0] < 0) {                    // Canto esquerdo
                 if pos_[1] > self.size.height{
@@ -223,10 +296,16 @@ public class GameScene: SKScene {
         }
     }
     
-    // Quando soltar
+    /** 
+        # Método: 
+        Ação de quando para de clicar na tela.
+    */
     func drop()-> Void {self.isDragging = false}
     
-    // Pega a distância dos pontos
+    /** 
+        # Método: 
+        Pega a distância entre dois os pontos.
+    */
     func getDistance(_ n1_:[CGFloat], _ n2_:[CGFloat]) -> CGFloat {
         return CGFloat(sqrt(pow(n1_[0] - n2_[0], 2) + pow(n1_[1] - n2_[1], 2)))
     }
