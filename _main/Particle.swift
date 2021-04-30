@@ -9,7 +9,7 @@ import struct SpriteKit.CGFloat
 /**
     # Criação das Partículas/Bolinhas.
     Criação e configuração da partícula.
-
+    
     ## Atributos
     
     |     Atributos     |                     Descrição                     |
@@ -19,7 +19,6 @@ import struct SpriteKit.CGFloat
     | initialTime       | Momento (em segundos) da criação da bolinha.      |
     | lifeTime          | Quanto tempo está durando/viva.                   |
     | specialNode       | Caso seja uma bolinha especial.                   |
-    | alive             | Estado da bolinha: viva ou "morta".               |
     | scale             | Escala em relação ao raio.                        |
     |-------------------|---------------------------------------------------|
     
@@ -34,15 +33,12 @@ import struct SpriteKit.CGFloat
     | isSpecialNode     | Verifica se é uma bolinha especial (verde).       |
     | setUserColor      | Define a cor da bolinha do usuário.               |
     | setSpecialColor   | Define a cor da bolinha especial.                 |
-    | setRun            | Define a ação (movimento) da bolinha.             |
     | getRadius         | Retorna o tamanho do raio da bolinha.             |
     | setInitialTime    | Define o segundo em que ela nasceu.               |
     | getInitialTime    | Retorna o segundo em que ela nasceu.              |
     | setLifeTime       | Define quanto tempo ela está durando ("viva").    |
     | getLifeTime       | Retorna quanto tempo ela esta durando ("viva").   |
     | isReady           | Verifica se está pronta para uso .                |
-    | setAlive          | Define se está viva.                              |
-    | isAlive           | Verifica se está viva.                            |
     | setScale          | Define a escala.                                  |
     | getScale          | Retorna a escala.                                 |
     |-------------------|---------------------------------------------------|
@@ -54,13 +50,12 @@ public class Particle {
     private var initialTime:Int = 0
     private var lifeTime:Int = 0
     private var specialNode:Bool = false
-    private var alive:Bool = true
     private var scale:CGFloat = 0.5
     
     
-    /** 
-        # Construtor: 
-        Configurações inicais da bolinha:
+    /**
+        # Construtor:
+            Configurações inicais da bolinha:
             - Tira a borda;
             - Coloca a cor padrão (vermelha);
             - Define a escala inicial;
@@ -70,54 +65,53 @@ public class Particle {
         self.node.fillColor = #colorLiteral(red: 0.921, green: 0.250, blue: 0.145, alpha: 1.0)
         self.node.setScale(self.scale)
     }
-
-
-    /** 
-        # Destrutor: 
+    
+    
+    /**
+        # Destrutor:
         Limpa os atributos da classe.
     */
     deinit {
-        self.node.delete(nil)
+        self.node.removeFromParent()
         self.radius = 0
         self.initialTime = 0
         self.lifeTime = 0
         self.specialNode = false
-        self.alive = false
         self.scale = 0
     }
     
-
-    /** 
-        # Método especial: 
+    
+    /**
+        # Método especial:
         Retorna a bolinha com as configurações feitas.
     */
     public func getNode() -> SKShapeNode {return self.node}
     
-
-    /** 
-        # Método especial: 
-        Define as posições de x e y.
-
-        ## Parâmetros:
-        `CGFloat` x_: posição em x.
-        `CGFloat` y_: posição em y.
+    
+    /**
+     # Método especial:
+     Define as posições de x e y.
+     
+     ## Parâmetros:
+     `CGFloat` x_: posição em x.
+     `CGFloat` y_: posição em y.
     */
     public func setPositions(_ x_:CGFloat, _ y_:CGFloat) -> Void {
         self.node.position.x = x_
         self.node.position.y = y_
     }
     
-    /** 
-        # Método especial: 
+    /**
+        # Método especial:
         Rotorna uma lista com as posições x e y respectivamente.
     */
     public func getPositions() -> [CGFloat] {return [self.node.position.x, self.node.position.y]}
     
-
-    /** 
-        # Método especial: 
+    
+    /**
+        # Método especial:
         Define o tipo da bolinha: convencional (vermelha) ou especial (verde ou do usuário).
-
+        
         ## Parâmetro:
         `Bool` b_: `true` pra esepcial ou `false` para comum.
     */
@@ -127,18 +121,18 @@ public class Particle {
     }
     
     
-    /** 
-        # Método especial: 
+    /**
+        # Método especial:
         Mostra se ela é especial ou convencional.
-
+        
         ## Retorno:
         `Bool` b_: `true` pra esepcial ou `false` para comum.
     */
     public func isSpecialNode() -> Bool {return self.specialNode}
     
     
-    /** 
-        # Método especial: 
+    /**
+        # Método especial:
         Define a cor da bolinha que o usuário controla e algumas pré-configurações que a tornam desse tipo.
     */
     public func setUserColor() -> Void {
@@ -146,8 +140,8 @@ public class Particle {
         self.setSpecialNode(true)
     }
     
-    /** 
-        # Método especial: 
+    /**
+        # Método especial:
         Define a cor da bolinha especial e algumas pré-configurações que a tornam desse tipo.
     */
     public func setSpecialColor() -> Void {
@@ -156,27 +150,16 @@ public class Particle {
     }
     
     
-    /** 
-        # Método especial: 
-        Define a ação (movimento) da bolinha.
-
-        ## Parâmetro:
-        `SKAction` act_: Ação do node.
-    */
-    public func setRun(_ act_:SKAction) -> Void {self.node.run(act_)}
-    
-    
-    /** 
-        # Método especial: 
+    /**
+        # Método especial:
         Retorna o tamanho do raio da bolinha.
     */
     public func getRadius() -> CGFloat {return self.radius}
     
     
-    /** 
-        # Método especial: 
+    /**
+        # Método especial:
         Define o segundo em que a bolinha foi criada em relação ao cronômetro.
-
         ## Parâmetro:
         `Int` t_: Tempo do cronômetro em que a bolinha foi criado.
     */
@@ -184,38 +167,38 @@ public class Particle {
         self.initialTime = t_
         self.setLifeTime(t_)
     }
-
-
-    /** 
-        # Método especial: 
+    
+    
+    /**
+        # Método especial:
         Retorna o segundo em que a bolinha foi criada em relação ao cronômetro.
     */
     public func getInitialTime() -> Int {return self.initialTime}
     
     
-    /** 
-        # Método especial: 
+    /**
+        # Método especial:
         Define quanto tempo será acrescentado na duração de vida dela.
-
+        
         ## Parâmetro:
         `Int` t_: Tempo que vai ser acrescentado.
     */
     public func setLifeTime(_ t_:Int) -> Void {self.lifeTime += t_}
     
     
-    /** 
-        # Método especial: 
+    /**
+        # Método especial:
         Retorna quanto tempo a bolinha está ativa/viva.
     */
     public func getLifeTime() -> Int {return self.lifeTime}
     
     
-    /** 
-        # Método especial: 
+    /**
+        # Método especial:
         Verifica se está pronta para ser movimentada.
-
-        ## Retorno: 
-            `true` se está pronta ou `false` caso esteja em crescimento.
+        
+        ## Retorno:
+        `true` se está pronta ou `false` caso esteja em crescimento.
     */
     public func isReady() -> Bool {
         if (self.getLifeTime() > self.getInitialTime()+1) {
@@ -224,30 +207,10 @@ public class Particle {
     }
     
     
-    /** 
-        # Método especial: 
-        Define se está na tela (viva).
-
-        ## Parâmetro:
-        `Bool` b_: `true` se está na cena ou `false` saiu dela.
-    */
-    public func setAlive(_ b_:Bool) -> Void {self.alive = b_}
-    
-
-    /** 
-        # Método especial: 
-        Verifica se está na tela (viva).
-
-        ## Retorno:
-        `Bool` b_: `true` se está na cena ou `false` saiu dela.
-    */
-    public func isAlive() -> Bool {return self.alive}
-    
-    
-    /** 
-        # Método especial: 
+    /**
+        # Método especial:
         Define a escala da bolinha.
-
+        
         ## Parâmetro:
         `CGFloat` s_: define a escala em relação ao raio.
     */
@@ -258,8 +221,8 @@ public class Particle {
     }
     
     
-    /** 
-        # Método especial: 
+    /**
+        # Método especial:
         Retorna a escala atual da bolinha.
     */
     public func getScale() -> CGFloat {return self.scale}

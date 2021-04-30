@@ -22,24 +22,24 @@ import class Modules.Particle
 /**
     # Ação e funcionamento do jogo
     Toda a lógica e funcionamento do jogo está nessa classe.
-
+    
     ## Atributos
     
-    |     Atributos     |                                    Descrição                                  |
-    |:------------------|:------------------------------------------------------------------------------|
-    | allParticles      | Lista com todas as partículas vermelhas.                                      |
-    | specialParticle   | Lista com todas as partículas verdes (especiais).                             |
-    | userNode          | Partícula que o usuário controla.                                             |
-    | gameOn            | Verifica se o jogo já começou.                                                |
-    | gameStart         | Incialização do jogo.                                                         |
-    | lbClock           | Label do cronômetro.                                                          |
-    | lbNotification    | Label da notificação de início e final de jogo.                               |
-    | renderTime        | Tempo de renderização do fps                                                  |
-    | gameTime          | Cronômetro.                                                                   |
-    | specialTime       | Momento de criação das bolinhas especiais.                                    |
-    | isDragging        | Verifica se está movendo a bolinha do usuário.                                |
-    | scaleTime         | Aumento da escala da bolinha (quando nasce) em relação ao tempo (segundos).   |
-    |-------------------|-------------------------------------------------------------------------------|
+    |     Atributos     |                     Descrição                     |
+    |:------------------|:--------------------------------------------------|
+    | allParticles      | Lista com todas as partículas vermelhas.          |
+    | specialParticle   | Lista com todas as partículas verdes (especiais). |
+    | userNode          | Partícula que o usuário controla.                 |
+    | gameOn            | Verifica se o jogo já começou.                    |
+    | gameStart         | Incialização do jogo.                             |
+    | lbClock           | Label do cronômetro.                              |
+    | lbNotification    | Label da notificação de início e final de jogo.   |
+    | renderTime        | Tempo de renderização do fps                      |
+    | gameTime          | Cronômetro.                                       |
+    | specialTime       | Momento de criação das bolinhas especiais.        |
+    | isDragging        | Verifica se está movendo a bolinha do usuário.    |
+    | speedNode         | Velocidade das boolinhas vermelhas.               |
+    |-------------------|---------------------------------------------------|
     
     ## Métodos
     
@@ -50,43 +50,42 @@ import class Modules.Particle
     | update            | Configuração e ação de cada frame (fps).          |
     | createNode        | Criação e configuração inicial de uma partícula.  |
     | moveParticles     | Movimentação das partículas.                      |
-    | clear             | Limpa a tela (ação das bolinhas verdes).          |
+    | getDistance       | Cálculo da distância entre dois pontos.           |
     | startDrag         | Ação de quando clica na tela.                     |
     | drag              | Ação de quando arrasta com o click pressionado.   |
     | drop              | Ação de quando solta o click.                     |
-    | getDistance       | Cálculo da distância entre dois pontos.           |
     |-------------------|---------------------------------------------------|
 */
 public class GameScene: SKScene {
     // Atributos da classe
-    var allParticles:[Particle] = []
-    var specialParticles:[Particle] = []
-    var userNode:Particle = Particle()
-    var gameOn:Bool = false
-    var gameStart:Bool = true
-    var lbClock:SKLabelNode = SKLabelNode()
-    var lbNotification:SKLabelNode = SKLabelNode()
-    var renderTime:TimeInterval = 0.0
-    var gameTime:Int = 0
-    var specialTime:Int = 4
-    var isDragging:Bool = false
-    var scaleTime:TimeInterval = 1
+    private var allParticles:[Particle] = []
+    private var specialParticles:[Particle] = []
+    private var userNode:Particle = Particle()
+    private var gameOn:Bool = false
+    private var gameStart:Bool = true
+    private var lbClock:SKLabelNode = SKLabelNode()
+    private var lbNotification:SKLabelNode = SKLabelNode()
+    private var renderTime:TimeInterval = 0.0
+    private var gameTime:Int = 0
+    private var specialTime:Int = 4
+    private var isDragging:Bool = false
+    private let speedNode:CGFloat = 1.3
     
-    /** 
-        # Método [lifecycle]: 
+    /**
+        # Método [lifecycle]:
         Toda vez que a tela é carregada (inicializada) essas configuraçôes serão feitas.
     */
-    public override func didMove(to view: SKView) {
+    public override func didMove(to view: SKView) -> Void {
         super.didMove(to: view)
         self.backgroundColor = #colorLiteral(red: 0.976, green: 0.8185917735099792, blue: 0.6586142182350159, alpha: 1.0)
         
         self.userNode.setUserColor()
         
-        self.lbClock.fontColor = #colorLiteral(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0) 
+        self.lbClock.fontColor = #colorLiteral(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
         self.lbClock.fontSize = 60
         self.lbClock.text = "0"
         
-        self.lbNotification.fontColor = #colorLiteral(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0) 
+        self.lbNotification.fontColor = #colorLiteral(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
         self.lbNotification.fontSize = 40
         self.lbNotification.text = "SWIPE THE BALL TO PLAY"
         
@@ -95,12 +94,11 @@ public class GameScene: SKScene {
         self.addChild(self.lbNotification)
     }
     
-
-    /** 
-        # Método [lifecycle]: 
+    /**
+        # Método [lifecycle]:
         Configurações feitas quando tem alguma alteração no tamanho de tela.
     */
-    public override func didChangeSize(_ oldSize: CGSize) {
+    public override func didChangeSize(_ oldSize: CGSize) -> Void {
         self.userNode.setPositions(self.size.width / 2, self.size.height / 2)
         self.lbClock.position.x = self.size.width / 2
         self.lbClock.position.y = self.size.height - 60
@@ -109,14 +107,12 @@ public class GameScene: SKScene {
         self.lbNotification.position.y = (self.size.height / 2) / 2
     }
     
-
-    /** 
-        # Método [lifecycle]: 
+    /**
+        # Método [lifecycle]:
         Ação de cada frame que acontece (fps).
     */
-    public override func update(_ currentTime: TimeInterval) {
-        if (self.gameOn) {  
-            self.gameStart = false
+    public override func update(_ currentTime: TimeInterval) -> Void {
+        if (self.gameOn) {
             // Tempo/cronômetro:
             if (currentTime > self.renderTime) {
                 self.gameTime += 1
@@ -130,139 +126,145 @@ public class GameScene: SKScene {
                 
                 // Criando a bolinha especial
                 if (self.gameTime == self.specialTime) {
-                    if (self.specialParticles.count != 3) { 
+                    if (self.specialParticles.count != 3) {
                         self.createNode(isSpecial_: true)
                     }
                     self.specialTime += 4
                 }
-                for p in self.allParticles.reversed() {
-                    if (p.isAlive()) {p.setLifeTime(1)}
-                    else {break}
-                }
+                for p in self.allParticles {p.setLifeTime(1)}
             }
-            moveParticles()
+            self.moveParticles()
         } else if (self.gameStart){
-            var uPos = self.userNode.getPositions()
+            var uPos:[CGFloat] = self.userNode.getPositions()
             if ((uPos[0] != self.size.width/2) && (uPos[1] != self.size.height/2)) {
                 self.gameOn = true
                 self.lbNotification.removeFromParent()
                 self.gameStart = false
             }
+            uPos = []
         }
     }
     
-    // Cria as bolinhas na tela
-    /** 
-        # Método: 
+    /**
+        # Método:
         Criação e configuração inicial das bolinhas
-
+        
         ## Parâmetro:
         `Bool` isSpecial_: `true` pra esepcial ou `false` para comum.
     */
-    func createNode(isSpecial_:Bool) {
-        var p = Particle()
+    private func createNode(isSpecial_:Bool) {
+        var p:Particle = Particle()
         // Define a posição da bolinha
-        var x = CGFloat.random(in: 0...self.size.width)
-        var y = CGFloat.random(in: 0...self.size.height-40)
-        p.setPositions(x, y) 
+        var x:CGFloat = CGFloat.random(in: 0...self.size.width)
+        var y:CGFloat = CGFloat.random(in: 0...self.size.height-40)
+        p.setPositions(x, y)
         
         // Define o tempo da bolinha
         p.setInitialTime(self.gameTime)
         
-        // Coloca na tela e guarda no vetor
+        // Coloca na tela
         self.addChild(p.getNode())
-        self.allParticles.append(p)
         
         // Caso seja uma bolinha especial
         if (isSpecial_) {
             p.setSpecialColor()
             self.specialParticles.append(p)
+        } else {
+            self.allParticles.append(p)
         }
+        
+        // Limpando as variáveis
+        x = 0.0
+        y = 0.0
     }
     
-    
-    /** 
-        # Método: 
+    /**
+        # Método:
         Configuração do movimento das bolinhas.
     */
-    func moveParticles() -> Void {
+    private func moveParticles() -> Void {
         // Posição atual do UserNode
-        var uPos = self.userNode.getPositions()
-        var act = SKAction.move(to: CGPoint(x: uPos[0] , y: uPos[1]), duration: 3)
+        var uPos:[CGFloat] = self.userNode.getPositions()
+        var pos:[CGFloat]
+        
+        // Bolinhas especiais: verifica se encostou em alguma
+        for s in 0..<self.specialParticles.count {
+            pos = self.specialParticles[s].getPositions()
+            if (self.getDistance(pos, uPos)-self.userNode.getRadius() < self.userNode.getRadius()) {
+                self.specialParticles.remove(at: s)
+                self.allParticles = []
+                return
+            }
+        }
+            
+        var dist:CGFloat
+        var x:CGFloat
+        var y:CGFloat
         
         // Movimentação das bolinhas
-        for p in self.allParticles.reversed() {
-            if (p.isAlive()) {
-                var pos = p.getPositions()
+        for p in self.allParticles {
+            if (p.isReady()) {                      // Perseguindo
+                pos = p.getPositions()
+                dist = self.getDistance(pos, uPos)
                 
-                // Especial
-                if (p.isSpecialNode()) {
-                    if (getDistance(pos, uPos)-self.userNode.getRadius() < self.userNode.getRadius()) {
-                        for s in 0..<self.specialParticles.count{
-                            if (self.specialParticles[s].getInitialTime() == p.getInitialTime()) {
-                                self.specialParticles.remove(at: s)
-                                break
-                            }
-                        }
-                        self.clear()
-                        return
-                    }; continue
-                } 
+                // Parada do jogo
+                if ((dist-self.userNode.getRadius()+5) < self.userNode.getRadius()) {
+                    self.gameOn = false
+                    self.lbNotification.text = "GAME OVER"
+                    self.addChild(self.lbNotification)
+                    self.lbNotification.position.y = (self.size.height / 2)
+                    return
+                }
+                // Definindo uma nova direção
+                x = uPos[0]-pos[0]
+                y = uPos[1]-pos[1]
                 
-                // Comum
-                if (p.isReady()) {                      // Perseguindo
-                    // Parada do jogo
-                    if ((getDistance(pos, uPos)-self.userNode.getRadius()-3) < self.userNode.getRadius()) {
-                        self.gameOn = false
-                        self.lbNotification.text = "GAME OVER"
-                        self.addChild(self.lbNotification)
-                        self.lbNotification.position.y = (self.size.height / 2)
-                        return
-                    }
-                    
-                    if p.getScale() != CGFloat(1) {p.setScale(1)}
-                    p.setRun(act)
-                } else {p.setScale(p.getScale()+0.01)}  // Nascendo
-            } else {return}
+                p.setPositions(pos[0]+((x*self.speedNode)/dist), pos[1]+((y*self.speedNode)/dist))
+                
+            } else {                                // Nascendo
+                if (p.getScale() > CGFloat(1)) {p.setScale(1)}
+                else {p.setScale(p.getScale()+0.01)}
+            }
         }
+        
+        // Limpando as variáveis
+        uPos = []
+        pos = []
+        dist = 0.0
+        x = 0.0
+        y = 0.0
     }
-    
-    
-    /** 
-        # Método: 
-        Ação das bolinhas verdes: tira todas as bolinhas (partículas/node) vermelhas da tela.
+        
+    /**
+        # Método:
+        Pega a distância entre dois os pontos.
+        
+        ## Parâmetros:
+        `[CGFloat]` n1_: bolinha 1/2 pra pegar a distãncia.
+        `[CGFloat]` n2_: bolinha 2/2 pra pegar a distãncia.
     */
-    func clear() -> Void{
-        for p in self.allParticles.reversed(){
-            if (!p.isAlive()) {break}
-            p.setAlive(false)
-            p.getNode().removeAllActions()
-        }
-        self.removeAllChildren()
-        for s in specialParticles {
-            s.setAlive(true)
-            self.addChild(s.getNode())
-            self.allParticles.append(s)
-        }
-        self.addChild(self.userNode.getNode())
-        self.addChild(self.lbClock)
+    public func getDistance(_ n1_:[CGFloat], _ n2_:[CGFloat]) -> CGFloat {
+        return CGFloat(sqrt(pow(n1_[0] - n2_[0], 2) + pow(n1_[1] - n2_[1], 2)))
     }
-    
+        
     /* Movimentando a bolinha com o mouse (node) */
     
-    /** 
-        # Método: 
+    /**
+        # Método:
         Ação de quando clica na tela.
     */
-    func startDrag(_ pos_:[CGFloat]) -> Void {
+    public func startDrag(_ pos_:[CGFloat]) -> Void {
         if (self.gameOn || self.gameStart) {self.isDragging = true}
     }
-    
-    /** 
-        # Método: 
+        
+    /**
+        # Método:
         Ação de quando arrasta algo na tela.
+        
+        ## Parâmetro:
+        `[CGFloat]` pos_: nova posição da bolinha do usuário.
     */
-    func drag(_ pos_:[CGFloat]) -> Void{
+    public func drag(_ pos_:[CGFloat]) -> Void {
         if ((self.gameOn && self.isDragging) || (self.gameStart)) {
             if (pos_[0] < 0 && pos_[1] < 0) {            // 3º Quadrante (x e y são negativos)
                 self.userNode.setPositions(0, 0)
@@ -295,18 +297,10 @@ public class GameScene: SKScene {
             }
         }
     }
-    
-    /** 
-        # Método: 
+        
+    /**
+        # Método:
         Ação de quando para de clicar na tela.
     */
-    func drop()-> Void {self.isDragging = false}
-    
-    /** 
-        # Método: 
-        Pega a distância entre dois os pontos.
-    */
-    func getDistance(_ n1_:[CGFloat], _ n2_:[CGFloat]) -> CGFloat {
-        return CGFloat(sqrt(pow(n1_[0] - n2_[0], 2) + pow(n1_[1] - n2_[1], 2)))
-    }
+    public func drop() -> Void {self.isDragging = false}
 }

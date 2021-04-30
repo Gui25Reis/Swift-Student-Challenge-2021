@@ -10,7 +10,6 @@ import class Modules.GameScene
 /**
     # Configurações da cena
     Configurações do que acontece na tela e como reagir às ações que ocorrem ao longo do programa.
-
     ## Atributos
     
     |     Atributos     |                     Descrição                     |
@@ -30,10 +29,10 @@ import class Modules.GameScene
 */
 public class GameViewController: UIViewController {
     // Atributos da classe
-    let scene = GameScene()
+    private let scene = GameScene()
     
-    /** 
-        # Método [lifecycle]: 
+    /**
+        # Método [lifecycle]:
         Toda vez que a tela é carregada (inicializada) essas configuraçôes serão feitas.
     */
     public override func viewDidLoad() {
@@ -46,8 +45,9 @@ public class GameViewController: UIViewController {
         self.view = view                                    // Define a cena
     }
     
-    /** 
-        # Método: 
+    
+    /**
+        # Método:
         Ação de quando clica na tela.
     */
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -62,8 +62,8 @@ public class GameViewController: UIViewController {
     }
     
     
-    /** 
-        # Método: 
+    /**
+        # Método:
         Ação de quando arrasta algo na tela.
     */
     public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -73,8 +73,8 @@ public class GameViewController: UIViewController {
         }
     }
     
-    /** 
-        # Método: 
+    /**
+        # Método:
         Ação de quando para de clicar na tela.
     */
     public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
