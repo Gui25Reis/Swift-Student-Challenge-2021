@@ -13,8 +13,9 @@ A game created for the [playgrounds](https://www.apple.com/swift/playgrounds/) p
 1. [Submission](#subimission)
 2. [Code](#code)
 3. [Documentation](#documentation)
-4. [License](#license)
-5. [Author](#author)
+5. [Quick Guide](#quick-guide)
+6. [License](#license)
+7. [Author](#author)
 
 ## Subimission
 The version that was sent to Challenge is in this [realese](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/releases/tag/1.0.0). Over time I started making new implementations and improvements. The updated version is in [code](#code).
@@ -24,6 +25,9 @@ All code files are in the [_main](https://github.com/Gui25Reis/DIferenca-de-data
 
 ## Documentation
 Soon a documentation will be in [wiki](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/wiki).
+
+## Quick Guide
+![video](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/blob/main/Files/documentation/video/Demonstration.gif)
 
 ## License
 This project is licensed by [MIT License](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/blob/master/LICENSE).
