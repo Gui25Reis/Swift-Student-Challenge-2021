@@ -10,14 +10,14 @@
 
 A game created for the [playgrounds](https://www.apple.com/swift/playgrounds/) platform for the [Swift Student Challenge 2021](https://developer.apple.com/wwdc21/swift-student-challenge/). If you liked give a star 🌟 :)
 
-1. [Submission](#subimission)
+1. [Submission](#submission)
 2. [Code](#code)
 3. [Documentation](#documentation)
 5. [Quick Guide](#quick-guide)
 6. [License](#license)
 7. [Author](#author)
 
-## Subimission
+## Submission
 The version that was sent to Challenge is in this [realese](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/releases/tag/1.0.0). Over time I started making new implementations and improvements. The updated version is in [code](#code).
 
 ## Code
