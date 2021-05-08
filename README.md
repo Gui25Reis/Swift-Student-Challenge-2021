@@ -4,6 +4,7 @@
 [![Plataform](https://img.shields.io/badge/plataforma-MacOS%20|%20iPad-lightgrey?)](https://www.apple.com/swift/playgrounds/)
 [![Swift version](https://img.shields.io/badge/swift-v5.3-blue?logo=swift)](https://www.python.org/downloads/release/python-385/)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen?)](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/blob/main/LICENSE)
+![visitors](https://visitor-badge-reloaded.herokuapp.com/badge?page_id=Student-Challenge-2021&color=55acb7)
 
 
 ![cover](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/blob/main/Files/images/cover-git.png)
@@ -24,7 +25,7 @@ The version that was sent to Challenge is in this [realese](https://github.com/G
 All code files are in the [_main](https://github.com/Gui25Reis/DIferenca-de-datas-em-dias/tree/master/_main) folder. The version to use in playgrounds is [here](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/blob/main/Files/Ball%20Runner.zip?raw=true), just unzip and import into playgrounds. 
 
 ## Documentation
-Soon a documentation will be in [wiki](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/wiki).
+Documentation created in [wiki](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/wiki).
 
 ## Quick Guide
 ![video](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/blob/main/Files/documentation/video/Demonstration.gif)
