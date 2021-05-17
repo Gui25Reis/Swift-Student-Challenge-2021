@@ -2,9 +2,9 @@
 [![Submission](https://img.shields.io/badge/submission-1.0.0-orange)](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/releases/tag/1.0.0)
 [![Version](https://img.shields.io/badge/version-1.2.0-orange)](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/releases/tag/1.2.0)
 [![Plataform](https://img.shields.io/badge/plataforma-MacOS%20|%20iPad-lightgrey?)](https://www.apple.com/swift/playgrounds/)
-[![Swift version](https://img.shields.io/badge/swift-v5.3-blue?logo=swift)](https://www.python.org/downloads/release/python-385/)
+[![Swift version](https://img.shields.io/badge/swift-v5.3-blue?logo=swift)](https://swift.org/download/#releases)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen?)](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/blob/main/LICENSE)
-![visitors](https://visitor-badge-reloaded.herokuapp.com/badge?page_id=Student-Challenge-2021&color=55acb7)
+<!-- (url)![visitors](https://visitor-badge-reloaded.herokuapp.com/badge?page_id=Student-Challenge-2021&color=55acb7) -->
 
 
 ![cover](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/blob/main/Files/images/cover-git.png)
@@ -14,9 +14,9 @@ A game created for the [playgrounds](https://www.apple.com/swift/playgrounds/) p
 1. [Submission](#submission)
 2. [Code](#code)
 3. [Documentation](#documentation)
-5. [Quick Guide](#quick-guide)
-6. [License](#license)
-7. [Author](#author)
+4. [Quick Guide](#quick-guide)
+5. [License](#license)
+6. [Author](#author)
 
 ## Submission
 The version that was sent to Challenge is in this [realese](https://github.com/Gui25Reis/Swift-Student-Challenge-2021/releases/tag/1.0.0). Over time I started making new implementations and improvements. The updated version is in [code](#code).
